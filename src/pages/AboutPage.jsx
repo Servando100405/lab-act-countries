@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const AboutPage = () => {
   return (
     <div className="max-w-2xl mx-auto py-10 space-y-4">
@@ -11,9 +13,9 @@ const AboutPage = () => {
         React Router, wire it into the app, and turn this into a real
         multi-page experience with working navigation and a 404 page.
       </p>
-      <a href="/" className="btn">
+      <Link to="/" className="btn">
         Back to Home
-      </a>
+      </Link>
     </div>
   );
 };

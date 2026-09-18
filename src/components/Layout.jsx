@@ -1,32 +1,55 @@
-// NOTE: The nav below uses <a href="…"> which triggers full page reloads.
-// Lab 07 asks you to install react-router and replace these with <Link>.
+import { NavLink, Outlet } from "react-router";
 
-const Layout = ({ children }) => {
+const Layout = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <nav className="h-14 flex items-center justify-between border-2 px-5 border-blue-600">
+      <nav className="h-14 flex items-center justify-between px-5 shadow">
         <div className="flex items-center gap-2">
-          <span className="text-2xl">🌍</span>
           <span className="font-bold">Countries of the World</span>
         </div>
 
         <div className="flex gap-5">
-          <a href="/">
-            <p className="text-[12px]">Home</p>
-          </a>
-          <a href="/countries">
-            <p className="text-[12px]">Countries</p>
-          </a>
-          <a href="/bucket-list">
-            <p className="text-[12px]">Bucket List</p>
-          </a>
-          <a href="/about">
-            <p className="text-[12px]">About</p>
-          </a>
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              `text-[12px] ${isActive ? "font-bold text-blue-600" : ""}`
+            }
+          >
+            Home
+          </NavLink>
+
+          <NavLink
+            to="/countries"
+            className={({ isActive }) =>
+              `text-[12px] ${isActive ? "font-bold text-blue-600" : ""}`
+            }
+          >
+            Countries
+          </NavLink>
+
+          <NavLink
+            to="/bucket-list"
+            className={({ isActive }) =>
+              `text-[12px] ${isActive ? "font-bold text-blue-600" : ""}`
+            }
+          >
+            Bucket List
+          </NavLink>
+
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              `text-[12px] ${isActive ? "font-bold text-blue-600" : ""}`
+            }
+          >
+            About
+          </NavLink>
         </div>
       </nav>
-      <main className="flex-1 border-2 border-amber-400 p-3">
-        {children}
+
+      <main className="flex-1 p-6">
+        <Outlet />
       </main>
     </div>
   );
