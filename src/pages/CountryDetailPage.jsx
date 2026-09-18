@@ -1,15 +1,16 @@
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import COUNTRIES from "../data/countries";
 
 const CountryDetailPage = () => {
   const { countryCode } = useParams();
+  const navigate = useNavigate();
   const country = COUNTRIES.find((c) => c.code === countryCode.toUpperCase());
 
   if (!country) {
     return (
       <div className="max-w-xl mx-auto py-10 text-center">
         <h1 className="text-3xl font-bold mb-3">Country not found</h1>
-        <p className="mb-6">We couldn't find a country with code {countryCode}.</p>
+        <p className="mb-6">No country with code "{countryCode}" exists in our data.</p>
         <Link to="/countries" className="btn btn-primary">
           Back to Countries
         </Link>
@@ -17,11 +18,22 @@ const CountryDetailPage = () => {
     );
   }
 
+  const handleRandom = () => {
+    const others = COUNTRIES.filter((c) => c.code !== country.code);
+    const random = others[Math.floor(Math.random() * others.length)];
+    navigate(`/countries/${random.code}`);
+  };
+
   return (
     <div className="max-w-3xl mx-auto py-8">
-      <Link to="/countries" className="btn btn-ghost mb-6">
-        ← Back to countries
-      </Link>
+      <div className="flex items-center justify-between mb-6">
+        <Link to="/countries" className="btn btn-ghost">
+          ← Back to Countries
+        </Link>
+        <button onClick={() => navigate(-1)} className="btn btn-outline">
+          Back
+        </button>
+      </div>
 
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
@@ -50,6 +62,12 @@ const CountryDetailPage = () => {
                 {country.population.toLocaleString()} people
               </div>
             </div>
+          </div>
+
+          <div className="mt-6 flex gap-3">
+            <button onClick={handleRandom} className="btn btn-primary">
+              Random Country
+            </button>
           </div>
         </div>
       </div>
